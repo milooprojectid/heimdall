@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: heimdall-deployment
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: heimdall-service
@@ -16,7 +16,7 @@ spec:
         - name: heimdall-service
           image: asia.gcr.io/miloo-phoenix/heimdall
           ports:
-            - containerPort: 5001
+            - containerPort: 8080
 
 ---
 
@@ -29,5 +29,5 @@ spec:
   selector:
     app: heimdall-service
   ports:
-    - port: 5001
-      targetPort: 8000
+    - port: 8000
+      targetPort: 8080
