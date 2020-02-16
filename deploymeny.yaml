@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: heimdall-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: heimdall-service
+  template:
+    metadata:
+      labels:
+        app: heimdall-service
+    spec:
+      containers:
+        - name: heimdall-service
+          image: asia.gcr.io/miloo-phoenix/heimdall
+          ports:
+            - containerPort: 5001
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: heimdall-cluster-ip-service
+spec:
+  type: ClusterIP
+  selector:
+    app: heimdall-service
+  ports:
+    - port: 5001
+      targetPort: 8000
