@@ -2,7 +2,7 @@ package handler
 
 func getProfileDetail(data Data, context Context) (interface{}, error) {
 	return Output{
-		Message: "Profile data retrieved",
+		Message: "profile data retrieved",
 	}, nil
 }
 
