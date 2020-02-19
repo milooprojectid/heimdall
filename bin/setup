@@ -2,4 +2,4 @@
 go get -v all
 
 # build app
-go build ./src/*
+go build ./*.go
