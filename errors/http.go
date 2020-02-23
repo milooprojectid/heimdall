@@ -26,3 +26,21 @@ func (e *HTTPError) Detail() interface{} {
 
 	return e.Message
 }
+
+// InternalServerError ..
+func InternalServerError(message string) error {
+	return &HTTPError{
+		Name:    "Internal Server Error",
+		Message: message,
+		Status:  500,
+	}
+}
+
+// BadRequest ..
+func BadRequest(message string) error {
+	return &HTTPError{
+		Name:    "Bad Request",
+		Message: message,
+		Status:  400,
+	}
+}

@@ -10,17 +10,17 @@ func getSentimentAnalysis(data Data, context Context) (interface{}, error) {
 	data.Body(&body)
 
 	if text, ok := body["text"]; !ok || len(text) == 0 {
-		return nil, &e.HTTPError{"Bad Request", 400, "text field required"}
+		return nil, e.BadRequest("text field required")
 	}
 
 	service, err := s.GetService("morbius")
 	if err != nil {
-		return nil, &e.HTTPError{"Internal Server Error", 500, "Fail getting service, " + err.Error()}
+		return nil, e.InternalServerError("Fail getting service, " + err.Error())
 	}
 
 	result, err := service.Call("sentiment", body)
 	if err != nil {
-		return nil, &e.HTTPError{"Internal Server Error", 500, "Fail calling service, " + err.Error()}
+		return nil, e.InternalServerError("Fail calling service, " + err.Error())
 	}
 
 	return result, nil
