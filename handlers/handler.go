@@ -10,4 +10,5 @@ func Register(app *iris.Application) {
 	app.Get("/profile", irisHandler(getProfileDetail, nil))
 
 	app.Post("/module/sentiment-analysis", irisHandler(getSentimentAnalysis, nil))
+	app.Post("/module/text-summarization", irisHandler(getTextSummary, nil))
 }

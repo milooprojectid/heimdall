@@ -52,6 +52,17 @@ func GetService(name string) (Service, error) {
 			},
 		}, nil
 
+	case "storm":
+		return Service{
+			Name:     "Storm",
+			Endpoint: os.Getenv("SERVICE_STORM_URL"),
+			Protocol: "TCP",
+			Functions: map[string]string{
+				"summarizeText": "",
+				"summarizeLink": "/link",
+			},
+		}, nil
+
 	default:
 		return Service{}, errors.New("Unknown Service")
 	}

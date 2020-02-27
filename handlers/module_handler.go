@@ -25,3 +25,24 @@ func getSentimentAnalysis(data Data, context Context) (interface{}, error) {
 
 	return result, nil
 }
+
+func getTextSummary(data Data, context Context) (interface{}, error) {
+	var body map[string]string
+	data.Body(&body)
+
+	if text, ok := body["text"]; !ok || len(text) == 0 {
+		return nil, e.BadRequest("text field required")
+	}
+
+	service, err := s.GetService("storm")
+	if err != nil {
+		return nil, e.InternalServerError("Fail getting service, " + err.Error())
+	}
+
+	result, err := service.Call("summarizeText", body)
+	if err != nil {
+		return nil, e.InternalServerError("Fail calling service, " + err.Error())
+	}
+
+	return result, nil
+}
